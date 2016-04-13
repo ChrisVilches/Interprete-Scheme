@@ -1,0 +1,45 @@
+body{
+                width:400px;
+                margin: 0 auto;
+                font-size:14px;                
+            }
+            
+            #contenedor{
+                margin-top: 50px;
+            }
+            
+            div.resultado{
+                margin-bottom:10px;
+                border-bottom: 1px dashed #dfdfdf;
+                padding-bottom:5px;
+            }
+            
+            span.codigo{
+                display:block;
+                font-weight:bold;
+            }
+            
+            span.resultado{
+                display:block;
+            }
+            
+            div.resultado small{
+                color: #acacac;
+                margin-right: 10px;
+            }
+            
+            span.error{
+                color: #ff6666;
+            }
+            
+            span{
+                padding:5px 0;
+            }
+            
+            #entrada{
+                width: 300px;
+            }
+            
+            input[type="text"]{
+                padding: 3px;
+            }
