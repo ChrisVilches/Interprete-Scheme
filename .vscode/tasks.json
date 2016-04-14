@@ -20,9 +20,6 @@
 	// Show the output window only if unrecognized errors occur.
 	"showOutput": "silent",
 
-	// args is the HelloWorld program to compile.
-	"args": ["main.ts"],
-
 	// use the standard tsc problem matcher to find compile problems
 	// in the output.
 	"problemMatcher": "$tsc"

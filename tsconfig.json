@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "sourceMap":  true, 
+        "target": "ES5",
+        "outDir": "build/"
+    },
+    "files": [
+        "src/nodos.ts",
+        "src/interprete.ts",
+        "src/controladorVista.ts"
+    ]
+}
