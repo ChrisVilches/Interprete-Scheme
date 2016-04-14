@@ -4,9 +4,9 @@ var interpreteScheme;
 (function (interpreteScheme) {
     /* Expresion de la forma (+ a b) o tambien puede ser (+ () ()) es decir con mas expresiones dentro */
     /* El retorno de este Regex es la operacion, y los dos argumentos JUNTOS en una sola variable */
-    var expresionOperacion = /^\s*\(\s*([\+|\-|\*|\/])\s+(([0-9]+|\(.+?\))\s+([0-9]+|\(.+\)))\s*\)\s*$/;
+    var expresionOperacion = /^\s*\(\s*([\+|\-|\*|\/])\s+((?:\-{0,1}[0-9]+(?:\.[0-9]+)?|\(.+\))\s+(?:\-{0,1}[0-9]+(?:\.[0-9]+)?|\(.+\)))\s*\)\s*$/;
     /* Valor numerico */
-    var expresionValorPrimitivo = /^\s*([0-9]+)\s*$/;
+    var expresionValorPrimitivo = /^\s*(\-{0,1}[0-9]+(?:\.[0-9]+)?)\s*$/;
     /* Verifica que un codigo de Scheme tenga parentesis balanceados */
     function esBalanceada(str) {
         var nivel = 0;
@@ -53,6 +53,21 @@ var interpreteScheme;
         }
     }
     function compilarRecursivo(str) {
+        /*
+        Resumen del algoritmo:
+        
+        Funcion recursiva
+        Caso generico: expresion con parentesis y dos argumentos
+        Caso base: valor numerico.
+        
+        Cuando es con parentesis, se usa la expresion regular para obtener la operacion
+        y argumentos (en una sola string ambos, porque JS no soporta regex recursivo) y
+        luego se parten los argumentos usando splitArgs().
+        
+        Luego se compilan ambos argumentos (recursividad), y se crea un nodo usando
+        estos argumentos compilados, los cuales a su vez tambien fueron convertidos en nodos,
+        por lo tanto se obtiene un arbol.
+        */
         if (!esBalanceada(str)) {
             return null;
         }
@@ -68,8 +83,8 @@ var interpreteScheme;
             var arg1 = args[0];
             var arg2 = args[1];
             // Compilar las dos expresiones que hay dentro del (+ a b)        
-            arg1 = compilar(arg1);
-            arg2 = compilar(arg2);
+            arg1 = compilarRecursivo(arg1);
+            arg2 = compilarRecursivo(arg2);
             if (arg1 == null || arg2 == null) {
                 return null;
             }
